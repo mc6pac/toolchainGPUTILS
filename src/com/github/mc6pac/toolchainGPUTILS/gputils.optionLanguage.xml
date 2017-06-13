@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opt:optionLanguage xmlns:opt="http://crownking/opt" 
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                    xsi:schemaLocation="http://crownking/opt opt/optionLanguage.xsd" 
+                    opt:id="GPUTILS" 
+                    opt:name="GPUTILS">
+  
+  <opt:optionCategory opt:id="mode_opt" opt:name="General">
+    <opt:booleanOption opt:id="older_coff_format" opt:name="Output a relocatable object in the older version of the Microchip COFF format." opt:trueemission="-c"/>
+    <opt:booleanOption opt:id="old_coff_format" opt:name="Output a relocatable object in the old Microchip COFF format." opt:trueemission="-C"/>
+  </opt:optionCategory>    
+      
+  <opt:optionCategory opt:id="gpasp_opt" opt:name="gpasm options">
+    <opt:enumOption opt:id="hexfileformat" opt:name="Hex file format." opt:textdefault="inhx32" opt:emissionprefix="-a" opt:emitswhendefault="false">
+        <opt:selection opt:text="inhx8s" opt:name="INHX8S"/>
+        <opt:selection opt:text="inhx8m" opt:name="INHX8M"/>
+        <opt:selection opt:text="inhx16" opt:name="INHX16"/>
+        <opt:selection opt:text="inhx32" opt:name="INHX32"/>            
+    </opt:enumOption>
+    <opt:booleanOption opt:id="output_debug" opt:name="Output debug messages." opt:trueemission="-d"/>
+    <opt:booleanOption opt:id="full_address" opt:name="Show full address in .lst file at the memory map region." opt:trueemission="-f"/>
+    <opt:booleanOption opt:id="coff_debug" opt:name="Use debug directives for COFF." opt:trueemission="-g"/>
+    <opt:booleanOption opt:id="show_help" opt:name="Display the help message." opt:trueemission="-h"/>
+    <opt:booleanOption opt:id="ignore_case" opt:name="ignore-case" opt:trueemission="-i"/>
+    <opt:booleanOption opt:id="error_file" opt:name="Enables the creation of the error file." opt:trueemission="-k"/>
+    <opt:booleanOption opt:id="extended" opt:name="Enable 18xx extended mode." opt:trueemission="-y"/>
+    <opt:stringListOption opt:id="user-defines" opt:name="Preprocessor macro definitions" opt:emissionprefix="-D" opt:emissionseparator=" -D" opt:expr="[A-Za-z_][A-Za-z_0-9]*(=.+)?"/>
+    <opt:stringListOption opt:id="user-includes" opt:name="Include directories" opt:emissionprefix="-I" opt:emissionseparator=" -I" opt:slashnormalization="unix" opt:isdirectory="true" opt:isbrowsable="true"/>
+  </opt:optionCategory>
+
+  <opt:optionCategory opt:id="gplink_opt" opt:name="gplink options">
+    <opt:booleanOption opt:id="" opt:name="." opt:trueemission="-"/>
+    <opt:booleanOption opt:id="" opt:name="." opt:trueemission="-"/>
+    <opt:booleanOption opt:id="" opt:name="." opt:trueemission="-"/>
+    <opt:booleanOption opt:id="" opt:name="." opt:trueemission="-"/>
+    <opt:booleanOption opt:id="" opt:name="." opt:trueemission="-"/>
+    <opt:booleanOption opt:id="" opt:name="." opt:trueemission="-"/>
+  </opt:optionCategory>
+
+  <opt:submatchPattern opt:idref="user-defines" opt:expr="-D(.+)"/>
+  <opt:submatchPattern opt:idref="user-includes" opt:expr="-I=(.+)"/>
+</opt:optionLanguage>inhx8m,
+inhx8s, inhx16, inhx32

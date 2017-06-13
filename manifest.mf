@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+AutoUpdate-Show-In-Client: true
+OpenIDE-Module: com.github.mc6pac.toolchainGPUTILS/1
+OpenIDE-Module-Layer: com/github/mc6pac/toolchainGPUTILS/layer.xml
+OpenIDE-Module-Localizing-Bundle: com/github/mc6pac/toolchainGPUTILS/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0.0
+
