@@ -9,6 +9,5 @@ public class GPUTILSUserIncludeProvider extends UserIncludeProvider {
 
     public GPUTILSUserIncludeProvider() {
         super(OPT_ID, OPT_PROP);
-    }
-    
+    }    
 }

@@ -1,11 +1,8 @@
 package com.github.mc6pac.toolchainGPUTILS;
 
 import com.microchip.mplab.nbide.embedded.api.LanguageToolSupport;
-import com.microchip.mplab.nbide.embedded.api.MCHPProcessUtils;
-import com.microchip.mplab.nbide.embedded.api.ProcessResult;
 import com.microchip.mplab.nbide.embedded.spi.VersionProvider;
 import java.io.File;
-import java.io.IOException;
 import java.util.regex.Matcher;
 import org.openide.util.Exceptions;
 
@@ -17,6 +14,7 @@ public class GPUTILSVersionProvider implements VersionProvider {
         
         try
         {
+            // Completes, but writes to std::err 
             Matcher m = LanguageToolSupport.findInOutput(pathToCompiler, new String[] {"--version"}, "\\d+\\.\\d+\\.\\d+", false, true);
             if (m == null) {
                 return "";
@@ -33,6 +31,7 @@ public class GPUTILSVersionProvider implements VersionProvider {
     @Override
     public String getVersion(String directory) 
     {
+        // Default toolchain version is for gpasm
         return new GPASM().getVersion(directory);
     }
     

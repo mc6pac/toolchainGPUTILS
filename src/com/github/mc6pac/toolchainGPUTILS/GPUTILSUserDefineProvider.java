@@ -8,6 +8,5 @@ public class GPUTILSUserDefineProvider extends UserDefineProvider {
 
     public GPUTILSUserDefineProvider() {
         super(OPT_ID, OPT_PROP);
-    }
-    
+    }    
 }
