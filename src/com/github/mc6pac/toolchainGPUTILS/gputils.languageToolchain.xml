@@ -12,7 +12,7 @@
   
   <mp:configurationObject mp:id="gputils-config" mp:idref="GPUTILS" opt:src="gputils.optionLanguage.xml"/>
 
-  <mp:customizerNode mp:idref="gputils-config" mp:name="GPUTILS"/>
+  <mp:customizerNode mp:idref="gputils-config" mp:name="GPUTILS Configuration"/>
 
   <mp:makefileWriter>
       <mp:inputToOutputExtensionMap mp:src="asm" mp:dst="o"/>
@@ -21,14 +21,14 @@
           <mp:buildStep mp:idref="assemble"/>
           <mp:buildStep mp:idref="link"/>
       </mp:build>
-      <mp:makeRule mp:id="assemble" mp:prerequisites=".*(asm|ASM|Asm)$">
+      <mp:makeRule mp:id="assemble" mp:prerequisites=".*(asm|ASM|Asm)$" mp:runtimepropertiesclass="com.github.mc6pac.toolchainGPUTILS.GPUTILSProperties">
             <mp:textEmitter mp:text="${MKDIR} ${CURRENT_QUOTED_IF_SPACED_OBJECT_DIR_UNIX_SLASHES} ${NEWLINE}"/>
             <mp:textEmitter mp:text="${RM} ${CURRENT_QUOTED_IF_SPACED_OBJECT_FILE} ${NEWLINE}"/>
             <mp:textEmitter mp:text="${MP_AS} "/>
             <mp:textEmitter mp:text="-p${PROCESSOR_NAME} "/>
             <mp:optionEmitter mp:idref="gputils-config" mp:separator=" "/>
             <mp:textEmitter mp:text=" ${CURRENT_QUOTED_IF_SPACED_SOURCE_FILE} "/>
-            <mp:textEmitter mp:text=" -o${CURRENT_QUOTED_IF_SPACED_OBJECT_FILE}"/>
+            <mp:textEmitter mp:text=" -o ${CURRENT_QUOTED_IF_SPACED_OBJECT_FILE}"/>
             <mp:textEmitter mp:text="${NEWLINE}"/>
       </mp:makeRule>
 
@@ -37,7 +37,7 @@
             <mp:textEmitter mp:text="${MP_LD} "/>
             <mp:optionEmitter mp:idref="gputils-config" mp:separator=" "/>
             <mp:textEmitter mp:text=" ${CURRENT_QUOTED_IF_SPACED_OBJECT_FILES}" mp:separator=" "/>
-            <mp:textEmitter mp:text=" -o${FINAL_IMAGE_NAME} "/>
+            <mp:textEmitter mp:text=" -o ${FINAL_IMAGE_NAME} "/>
       </mp:makeRule>
   </mp:makefileWriter>
 
