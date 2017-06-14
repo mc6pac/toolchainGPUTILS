@@ -39,5 +39,4 @@
 
   <opt:submatchPattern opt:idref="user-defines" opt:expr="-D(.+)"/>
   <opt:submatchPattern opt:idref="user-includes" opt:expr="-I=(.+)"/>
-</opt:optionLanguage>inhx8m,
-inhx8s, inhx16, inhx32
+</opt:optionLanguage>
