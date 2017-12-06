@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<opt:optionLanguage xmlns:opt="http://crownking/opt" 
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                    xsi:schemaLocation="http://crownking/opt opt/optionLanguage.xsd" 
+                    opt:id="gputils-mode" 
+                    opt:name="GPASM mode">
+    <opt:optionCategory opt:id="assemblermode" opt:name="Assembler mode">
+        <opt:booleanOption opt:id="singlemode" opt:groupid="singlemodegrp" opt:name="Direct address mode." opt:falseemission="-C" opt:booldefault="true">
+        </opt:booleanOption>
+    </opt:optionCategory>
+
+    <opt:disablePattern opt:idref="singlemode" opt:expr="-([cC])"/>
+</opt:optionLanguage>
