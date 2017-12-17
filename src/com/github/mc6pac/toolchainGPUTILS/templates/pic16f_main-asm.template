@@ -1,0 +1,14 @@
+/*
+   File:   %<%NAME%>%.%<%EXTENSION%>%
+   Author: %<%USER%>%
+
+   Created on %<%DATE%>%, %<%TIME%>%
+ */
+
+    include p16f1xxx.inc
+
+START
+    
+    GOTO $
+
+    END

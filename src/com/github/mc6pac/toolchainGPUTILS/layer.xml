@@ -8,4 +8,34 @@
             </file>
         </folder>
     </folder>
+    <folder name="Templates">
+        <folder name="Microchip Embedded">
+            <folder name="GPUTILS">
+                <file name="main_pic16f.asm" url="templates/pic16f_main-asm.template">
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="com.github.mc6pac.toolchainGPUTILS.Bundle"/>
+                    <attr name="position" intvalue="300"/>
+                    <attr name="template" boolvalue="true"/>
+                    <attr name="fixedExtension" stringvalue="asm"/>
+                    <attr name="templateWizardURL" urlvalue="nbresloc:/com.github.mc6pac.toolchainGPUTILS/resources/pic16f_main-asm.html"/>
+                    <attr name="templateCategory" stringvalue="asm-types"/>
+                </file>
+                <file name="main_pic18f.asm" url="templates/pic18f_main-asm.template">
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="com.github.mc6pac.toolchainGPUTILS.Bundle"/>
+                    <attr name="position" intvalue="300"/>
+                    <attr name="template" boolvalue="true"/>
+                    <attr name="fixedExtension" stringvalue="asm"/>
+                    <attr name="templateWizardURL" urlvalue="nbresloc:/com.github.mc6pac.toolchainGPUTILS/resources/pic18f_main-asm.html"/>
+                    <attr name="templateCategory" stringvalue="asm-types"/>
+                </file>
+                <file name="example.asm" url="templates/example-asm.template">
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="com.github.mc6pac.toolchainGPUTILS.Bundle"/>
+                    <attr name="position" intvalue="300"/>
+                    <attr name="template" boolvalue="true"/>
+                    <attr name="fixedExtension" stringvalue="asm"/>
+                    <attr name="templateWizardURL" urlvalue="nbresloc:/com.github.mc6pac.toolchainGPUTILS/resources/example-asm.html"/>
+                    <attr name="templateCategory" stringvalue="asm-types"/>
+                </file>
+            </folder>
+        </folder>
+    </folder>
 </filesystem>
