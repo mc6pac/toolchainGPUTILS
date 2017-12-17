@@ -44,12 +44,14 @@
       </mp:makeRule>
   </mp:makefileWriter>
 
+  <mp:logicalFolder mp:id="ExternalFiles"/>
   <mp:logicalFolder mp:id="SourceFiles"/>
   <mp:logicalFolder mp:id="HeaderFiles"/>
-  <mp:logicalFolder mp:id="IncludeFiles"/>
+  <mp:logicalFolder mp:id="ResourceFiles"/>
+  <mp:logicalFolder mp:id="OtherFiles"/>
   <mp:logicalFolder mp:id="LinkerScript"/>
 
-  <mp:defaultLocation mp:hostplatform="windows" mp:dir="C:/*/gputils*/bin/"/>
+  <mp:defaultLocation mp:hostplatform="windows" mp:dir="C:/*/gputils*/*/bin/"/>
   <mp:defaultLocation mp:hostplatform="linux" mp:dir="/usr/bin"/>
   <mp:defaultLocation mp:hostplatform="mac" mp:dir="/*gputils*/bin"/>
 
@@ -57,7 +59,6 @@
   <mp:assembler mp:file="gpasm" mp:name="GPASM">
     <mp:versionProvider mp:class="com.github.mc6pac.toolchainGPUTILS.GPUTILSVersionProvider$GPASM"/>
     <mp:systemIncludeProvider mp:class="com.github.mc6pac.toolchainGPUTILS.GPUTILSSystemIncludeProvider"/>
-    <mp:systemDefineProvider mp:class="com.github.mc6pac.toolchainGPUTILS.GPUTILSSystemDefineProvider"/>
     <mp:userIncludeProvider mp:class="com.github.mc6pac.toolchainGPUTILS.GPUTILSUserIncludeProvider"/>
     <mp:userIncludeModifier mp:class="com.github.mc6pac.toolchainGPUTILS.GPUTILSUserIncludeModifier"/>
     <mp:userDefineProvider mp:class="com.github.mc6pac.toolchainGPUTILS.GPUTILSUserDefineProvider"/>
