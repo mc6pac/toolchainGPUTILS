@@ -8,10 +8,6 @@ import java.util.List;
 import org.netbeans.api.project.Project;
 import org.netbeans.spi.project.ProjectConfiguration;
 
-/**
- *
- * @author Patrick
- */
 public class GPUTILSSystemIncludeProvider implements IncludeProvider {
     
     public GPUTILSSystemIncludeProvider() {

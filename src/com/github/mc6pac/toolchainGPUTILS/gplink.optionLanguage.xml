@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<opt:optionLanguage xmlns:opt="http://crownking/opt" 
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                    xsi:schemaLocation="http://crownking/opt opt/optionLanguage.xsd" 
+                    opt:id="gplink-config" 
+                    opt:name="GPLINK">
+
+  <opt:optionCategory opt:id="link_opt" opt:name="Linker Options">
+    <opt:booleanOption opt:id="" opt:name="." opt:trueemission="-"/>
+    <opt:booleanOption opt:id="" opt:name="." opt:trueemission="-"/>
+    <opt:booleanOption opt:id="" opt:name="." opt:trueemission="-"/>
+    <opt:booleanOption opt:id="" opt:name="." opt:trueemission="-"/>
+    <opt:booleanOption opt:id="" opt:name="." opt:trueemission="-"/>
+    <opt:booleanOption opt:id="" opt:name="." opt:trueemission="-"/>
+  </opt:optionCategory>
+
+</opt:optionLanguage>

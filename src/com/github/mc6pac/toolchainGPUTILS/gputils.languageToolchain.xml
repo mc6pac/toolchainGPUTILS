@@ -10,27 +10,48 @@
 
   <mp:versionProvider mp:class="com.github.mc6pac.toolchainGPUTILS.GPUTILSVersionProvider"/>
   
-  <mp:configurationObject mp:id="gputils-mode" mp:idref="GPUTILS" opt:src="gputils.mode.optionLanguage.xml"/>
   <mp:configurationObject mp:id="gputils-config" mp:idref="GPUTILS" opt:src="gputils.optionLanguage.xml"/>
+  <mp:configurationObject mp:id="gpasm-config" mp:idref="gpasm" opt:src="gpasm.optionLanguage.xml"/>
+  <mp:configurationObject mp:id="gplink-config" mp:idref="gplink" opt:src="gplink.optionLanguage.xml"/>
 
-  <mp:customizerNode mp:idref="gputils-mode" mp:name="GPASM mode">
-      <mp:customizerNode mp:idref="gputils-config" mp:name="GPASM Configuration"/>
+  <mp:customizerNode mp:idref="gputils-config" mp:name="GPUTILS">
+      <mp:customizerNode mp:idref="gpasm-config" mp:name="GPASM"/>
+      <mp:customizerNode mp:idref="gplink-config" mp:name="GPLINK"/>
   </mp:customizerNode>
 
-  <mp:makefileWriter>
+  <mp:makefileWriter mp:runtimepropertiesclass="com.github.mc6pac.toolchainGPUTILS.GPUTILSMakeRuntimeProperties">
       <mp:inputToOutputExtensionMap mp:src="asm" mp:dst="o"/>
       <mp:inputToOutputExtensionMap mp:src="ASM" mp:dst="o"/>
+      <mp:inputToOutputExtensionMap mp:src="Asm" mp:dst="o"/>
+      
       <mp:build mp:buildtype="standalone" mp:outputextension="hex" mp:debuggableextension="cof">
-          <mp:buildStep mp:idref="assemble"/>
-          <mp:buildStep mp:idref="link"/>
+          <mp:buildStep mp:if="${SINGLE_MODE}" mp:idref="assemble_direct"/>
+          <mp:buildStep mp:if="${SINGLE_MODE}" mp:idref="link_not_used"/>
+
+          <mp:buildStep mp:ifnot="${SINGLE_MODE}" mp:idref="assemble"/>
+          <mp:buildStep mp:ifnot="${SINGLE_MODE}" mp:idref="link"/>
       </mp:build>
+      
+      <mp:makeRule mp:id="assemble_direct" mp:prerequisites=".*(asm|ASM|Asm)$" mp:runtimepropertiesclass="com.github.mc6pac.toolchainGPUTILS.GPUTILSProperties">
+            <mp:textEmitter mp:text="${MKDIR} ${CURRENT_QUOTED_IF_SPACED_OBJECT_DIR_UNIX_SLASHES} ${NEWLINE}"/>
+            <mp:textEmitter mp:text="${RM} ${CURRENT_QUOTED_IF_SPACED_OBJECT_FILE} ${NEWLINE}"/>
+            <mp:textEmitter mp:text="${MP_AS} "/>
+            <mp:textEmitter mp:text="-p${PROCESSOR_NAME} "/>
+            <mp:optionEmitter mp:idref="gpasm-config" mp:separator=" "/>
+            <mp:textEmitter mp:text=" ${CURRENT_QUOTED_IF_SPACED_SOURCE_FILE}"/>
+            <mp:textEmitter mp:text=" -o ${CURRENT_QUOTED_IF_SPACED_OBJECT_FILE}"/>
+            <mp:textEmitter mp:text="${NEWLINE}"/>
+      </mp:makeRule>
+
+      <mp:makeRule mp:id="link_not_used" mp:target="${FINAL_IMAGE_NAME}" mp:prerequisites="${CURRENT_OBJECT_FILES}"/>
+      
       <mp:makeRule mp:id="assemble" mp:prerequisites=".*(asm|ASM|Asm)$" mp:runtimepropertiesclass="com.github.mc6pac.toolchainGPUTILS.GPUTILSProperties">
             <mp:textEmitter mp:text="${MKDIR} ${CURRENT_QUOTED_IF_SPACED_OBJECT_DIR_UNIX_SLASHES} ${NEWLINE}"/>
             <mp:textEmitter mp:text="${RM} ${CURRENT_QUOTED_IF_SPACED_OBJECT_FILE} ${NEWLINE}"/>
             <mp:textEmitter mp:text="${MP_AS} "/>
             <mp:textEmitter mp:text="-p${PROCESSOR_NAME} "/>
-            <mp:optionEmitter mp:idref="gputils-config" mp:separator=" "/>
-            <mp:textEmitter mp:text=" ${CURRENT_QUOTED_IF_SPACED_SOURCE_FILE} "/>
+            <mp:optionEmitter mp:idref="gpasm-config" mp:separator=" "/>
+            <mp:textEmitter mp:text=" ${CURRENT_QUOTED_IF_SPACED_SOURCE_FILE}"/>
             <mp:textEmitter mp:text=" -o ${CURRENT_QUOTED_IF_SPACED_OBJECT_FILE}"/>
             <mp:textEmitter mp:text="${NEWLINE}"/>
       </mp:makeRule>
@@ -38,18 +59,17 @@
       <mp:makeRule mp:id="link" mp:target="${FINAL_IMAGE_NAME}" mp:prerequisites="${CURRENT_OBJECT_FILES}">
             <mp:textEmitter mp:text="${MKDIR} ${FINAL_TARGET_DIR} ${NEWLINE}"/>
             <mp:textEmitter mp:text="${MP_LD} "/>
-            <mp:optionEmitter mp:idref="gputils-config" mp:separator=" "/>
+            <mp:optionEmitter mp:idref="gplink-config" mp:separator=" "/>
             <mp:textEmitter mp:text=" ${CURRENT_QUOTED_IF_SPACED_OBJECT_FILES}" mp:separator=" "/>
-            <mp:textEmitter mp:text=" -o ${FINAL_IMAGE_NAME} "/>
+            <mp:textEmitter mp:text=" -o ${FINAL_IMAGE_NAME}"/>
+            <mp:textEmitter mp:text="${NEWLINE}"/>
       </mp:makeRule>
   </mp:makefileWriter>
 
-  <mp:logicalFolder mp:id="ExternalFiles"/>
   <mp:logicalFolder mp:id="SourceFiles"/>
-  <mp:logicalFolder mp:id="HeaderFiles"/>
-  <mp:logicalFolder mp:id="ResourceFiles"/>
-  <mp:logicalFolder mp:id="OtherFiles"/>
   <mp:logicalFolder mp:id="LinkerScript"/>
+  <mp:logicalFolder mp:id="ExternalFiles"/>
+  <mp:logicalFolder mp:id="OtherFiles"/>
 
   <mp:defaultLocation mp:hostplatform="windows" mp:dir="C:/*/gputils*/*/bin/"/>
   <mp:defaultLocation mp:hostplatform="linux" mp:dir="/usr/bin"/>

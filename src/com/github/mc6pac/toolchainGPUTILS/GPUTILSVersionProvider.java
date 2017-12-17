@@ -32,14 +32,14 @@ public class GPUTILSVersionProvider implements VersionProvider {
     public String getVersion(String directory) 
     {
         // Default toolchain version is for gpasm
-        return new GPASM().getVersion(directory);
+        return new GPASM().getVersion(directory + File.separator + "gpasm");
     }
     
     public static class GPASM implements VersionProvider {
     
         @Override
         public String getVersion(String directory) {
-            String pathToCompiler = directory + File.separator + "gpasm";
+            String pathToCompiler = directory;
             return extractVersion(pathToCompiler);
         }
     }
@@ -48,7 +48,7 @@ public class GPUTILSVersionProvider implements VersionProvider {
     
         @Override
         public String getVersion(String directory) {
-            String pathToCompiler = directory + File.separator + "gplink";
+            String pathToCompiler = directory;
             return extractVersion(pathToCompiler);
         }
     }
