@@ -13,10 +13,12 @@
   <mp:configurationObject mp:id="gputils-config" mp:idref="GPUTILS" opt:src="gputils.optionLanguage.xml"/>
   <mp:configurationObject mp:id="gpasm-config" mp:idref="gpasm" opt:src="gpasm.optionLanguage.xml"/>
   <mp:configurationObject mp:id="gplink-config" mp:idref="gplink" opt:src="gplink.optionLanguage.xml"/>
+  <mp:configurationObject mp:id="gplib-config" mp:idref="gplib" opt:src="gplib.optionLanguage.xml"/>
 
   <mp:customizerNode mp:idref="gputils-config" mp:name="GPUTILS">
       <mp:customizerNode mp:idref="gpasm-config" mp:name="GPASM"/>
       <mp:customizerNode mp:idref="gplink-config" mp:name="GPLINK"/>
+      <mp:customizerNode mp:idref="gplib-config" mp:name="GPLIB"/>
   </mp:customizerNode>
 
   <mp:makefileWriter mp:runtimepropertiesclass="com.github.mc6pac.toolchainGPUTILS.GPUTILSMakeRuntimeProperties">
@@ -31,10 +33,14 @@
           <mp:buildStep mp:ifnot="${SINGLE_MODE}" mp:idref="assemble"/>
           <mp:buildStep mp:ifnot="${SINGLE_MODE}" mp:idref="link"/>
       </mp:build>
+      <mp:build mp:buildtype="archive" mp:outputextension="lib">
+          <mp:buildStep mp:idref="assemble"/>
+          <mp:buildStep mp:idref="archive"/>
+      </mp:build>
       
       <mp:makeRule mp:id="assemble_direct" mp:prerequisites=".*(asm|ASM|Asm)$" mp:runtimepropertiesclass="com.github.mc6pac.toolchainGPUTILS.GPUTILSProperties">
-            <mp:textEmitter mp:text="${MKDIR} ${CURRENT_QUOTED_IF_SPACED_OBJECT_DIR_UNIX_SLASHES} ${NEWLINE}"/>
-            <mp:textEmitter mp:text="${RM} ${CURRENT_QUOTED_IF_SPACED_OBJECT_FILE} ${NEWLINE}"/>
+            <mp:textEmitter mp:text="@${MKDIR} ${CURRENT_QUOTED_IF_SPACED_OBJECT_DIR_UNIX_SLASHES} ${NEWLINE}"/>
+            <mp:textEmitter mp:text="@${RM} ${CURRENT_QUOTED_IF_SPACED_OBJECT_FILE} ${NEWLINE}"/>
             <mp:textEmitter mp:text="${MP_AS} "/>
             <mp:textEmitter mp:text="-p${PROCESSOR_NAME} "/>
             <mp:optionEmitter mp:idref="gpasm-config" mp:separator=" "/>
@@ -46,8 +52,8 @@
       <mp:makeRule mp:id="link_not_used" mp:target="${FINAL_IMAGE_NAME}" mp:prerequisites="${CURRENT_OBJECT_FILES}"/>
       
       <mp:makeRule mp:id="assemble" mp:prerequisites=".*(asm|ASM|Asm)$" mp:runtimepropertiesclass="com.github.mc6pac.toolchainGPUTILS.GPUTILSProperties">
-            <mp:textEmitter mp:text="${MKDIR} ${CURRENT_QUOTED_IF_SPACED_OBJECT_DIR_UNIX_SLASHES} ${NEWLINE}"/>
-            <mp:textEmitter mp:text="${RM} ${CURRENT_QUOTED_IF_SPACED_OBJECT_FILE} ${NEWLINE}"/>
+            <mp:textEmitter mp:text="@${MKDIR} ${CURRENT_QUOTED_IF_SPACED_OBJECT_DIR_UNIX_SLASHES} ${NEWLINE}"/>
+            <mp:textEmitter mp:text="@${RM} ${CURRENT_QUOTED_IF_SPACED_OBJECT_FILE} ${NEWLINE}"/>
             <mp:textEmitter mp:text="${MP_AS} "/>
             <mp:textEmitter mp:text="-p${PROCESSOR_NAME} "/>
             <mp:optionEmitter mp:idref="gpasm-config" mp:separator=" "/>
@@ -57,11 +63,20 @@
       </mp:makeRule>
 
       <mp:makeRule mp:id="link" mp:target="${FINAL_IMAGE_NAME}" mp:prerequisites="${CURRENT_OBJECT_FILES}">
-            <mp:textEmitter mp:text="${MKDIR} ${FINAL_TARGET_DIR} ${NEWLINE}"/>
+            <mp:textEmitter mp:text="@${MKDIR} ${FINAL_TARGET_DIR} ${NEWLINE}"/>
             <mp:textEmitter mp:text="${MP_LD} "/>
             <mp:optionEmitter mp:idref="gplink-config" mp:separator=" "/>
             <mp:textEmitter mp:text=" ${CURRENT_QUOTED_IF_SPACED_OBJECT_FILES}" mp:separator=" "/>
             <mp:textEmitter mp:text=" -o ${FINAL_IMAGE_NAME}"/>
+            <mp:textEmitter mp:text="${NEWLINE}"/>
+      </mp:makeRule>
+      
+      <mp:makeRule mp:id="archive" mp:target="${FINAL_IMAGE_NAME}" mp:prerequisites="${CURRENT_OBJECT_FILES}">
+            <mp:textEmitter mp:text="@${MKDIR} ${FINAL_TARGET_DIR} ${NEWLINE}"/>
+            <mp:textEmitter mp:text="${MP_AR} "/>
+            <mp:textEmitter mp:text="-c ${FINAL_IMAGE_NAME} "/>
+            <mp:optionEmitter mp:idref="gplib-config" mp:separator=" "/>
+            <mp:textEmitter mp:text=" ${CURRENT_QUOTED_IF_SPACED_OBJECT_FILES}" mp:separator=" "/>
             <mp:textEmitter mp:text="${NEWLINE}"/>
       </mp:makeRule>
   </mp:makefileWriter>
@@ -88,7 +103,11 @@
   <mp:linker mp:file="gplink" mp:name="GPLINK">
     <mp:versionProvider mp:class="com.github.mc6pac.toolchainGPUTILS.GPUTILSVersionProvider$GPLINK"/>
   </mp:linker>
-  
+
+  <mp:archiver mp:file="gplib" mp:name="GPLIB">
+    <mp:versionProvider mp:class="com.github.mc6pac.toolchainGPUTILS.GPUTILSVersionProvider$GPLIB"/>
+  </mp:archiver>
+    
     <mp:deviceSupport>
         <mp:family mp:family="16x">
             <mp:device mp:name="MCV08A"/>

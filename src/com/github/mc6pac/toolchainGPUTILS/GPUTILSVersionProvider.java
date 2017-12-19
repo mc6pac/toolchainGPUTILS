@@ -39,8 +39,7 @@ public class GPUTILSVersionProvider implements VersionProvider {
     
         @Override
         public String getVersion(String directory) {
-            String pathToCompiler = directory;
-            return extractVersion(pathToCompiler);
+            return extractVersion(directory);
         }
     }
 
@@ -48,8 +47,15 @@ public class GPUTILSVersionProvider implements VersionProvider {
     
         @Override
         public String getVersion(String directory) {
-            String pathToCompiler = directory;
-            return extractVersion(pathToCompiler);
+            return extractVersion(directory);
+        }
+    }
+
+    public static class GPLIB implements VersionProvider {
+    
+        @Override
+        public String getVersion(String directory) {
+            return extractVersion(directory);
         }
     }
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opt:optionLanguage xmlns:opt="http://crownking/opt" 
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                    xsi:schemaLocation="http://crownking/opt opt/optionLanguage.xsd" 
+                    opt:id="gplib-config" 
+                    opt:name="GPLIB">
+
+  <opt:optionCategory opt:id="lib_opt" opt:name="Library Options">
+    <opt:booleanOption opt:id="lib_no-index" opt:name="Don’t add the symbol index." opt:trueemission="-n"/>
+    <opt:booleanOption opt:id="lib_quiet" opt:name="Quiet mode." opt:trueemission="-q"/>
+  </opt:optionCategory>
+
+  <opt:enablePattern opt:idref="lib_no-index" opt:expr="-n"/>
+  <opt:enablePattern opt:idref="lib_quiet" opt:expr="-q"/>
+
+</opt:optionLanguage>
