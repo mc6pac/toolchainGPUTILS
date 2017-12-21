@@ -6,7 +6,9 @@
                     opt:name="GPUTILS">
   
   <opt:optionCategory opt:id="global_opt" opt:name="General Options">
-    <opt:booleanOption opt:id="singlemode" opt:groupid="singlemodegrp" opt:name="Direct address mode." opt:falseemission="-C" opt:booldefault="true"/>
+      <opt:booleanOption opt:id="singlemode" opt:groupid="singlemodegrp" opt:name="Absolute Asm Mode." opt:falseemission="-C" opt:booldefault="true">
+          In absolute asm mode, an assembly language source file is directly converted into a hex file by gpasm. This method is absolute because the final addresses are hard coded into the source file.
+      </opt:booleanOption>
   </opt:optionCategory>
 
   <opt:disablePattern opt:idref="singlemode" opt:expr="-([cC])"/>

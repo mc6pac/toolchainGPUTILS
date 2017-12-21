@@ -6,27 +6,52 @@
                     opt:name="GPASM">
   
   <opt:optionCategory opt:id="asm_opt" opt:name="Assembler Options">
-    <opt:booleanOption opt:id="older_coff_format" opt:name="Output a relocatable object in the older version of the Microchip COFF format." opt:trueemission="-c"/>
-    <opt:booleanOption opt:id="old_coff_format" opt:name="Output a relocatable object in the old Microchip COFF format." opt:trueemission="-C"/>
+    <!--opt:booleanOption opt:id="older_coff_format" opt:name="Output a relocatable object in the older version of the Microchip COFF format." opt:trueemission="-c"/ -->
+    <!--opt:booleanOption opt:id="old_coff_format" opt:name="Output a relocatable object in the old Microchip COFF format." opt:trueemission="-C"/ -->
     <opt:enumOption opt:id="hexfileformat" opt:name="Hex file format." opt:textdefault="inhx32" opt:emissionprefix="-a" opt:emitswhendefault="false">
         <opt:selection opt:text="inhx8s" opt:name="INHX8S"/>
         <opt:selection opt:text="inhx8m" opt:name="INHX8M"/>
         <opt:selection opt:text="inhx16" opt:name="INHX16"/>
         <opt:selection opt:text="inhx32" opt:name="INHX32"/>            
     </opt:enumOption>
-    <opt:booleanOption opt:id="singlemode" opt:groupid="singlemodegrp" opt:name="Direct address mode." opt:falseemission="-C" opt:booldefault="true"/>
     <opt:booleanOption opt:id="output_debug" opt:name="Output debug messages." opt:trueemission="-d"/>
     <opt:booleanOption opt:id="full_address" opt:name="Show full address in .lst file at the memory map region." opt:trueemission="-f"/>
     <opt:booleanOption opt:id="coff_debug" opt:name="Use debug directives for COFF." opt:trueemission="-g"/>
-    <opt:booleanOption opt:id="show_help" opt:name="Display the help message." opt:trueemission="-h"/>
     <opt:booleanOption opt:id="ignore_case" opt:name="ignore-case" opt:trueemission="-i"/>
     <opt:booleanOption opt:id="error_file" opt:name="Enables the creation of the error file." opt:trueemission="-k"/>
     <opt:booleanOption opt:id="extended" opt:name="Enable 18xx extended mode." opt:trueemission="-y"/>
+    <opt:booleanOption opt:id="ignore_nolist" opt:name="Ignore nolist directives." opt:trueemission="-L"/>
+    <opt:booleanOption opt:id="output_deps" opt:name="Output a dependency file." opt:trueemission="-M"/>
+    <opt:booleanOption opt:id="use_dos" opt:name="Use DOS style newlines (CRLF) in hex file." opt:trueemission="-n"/>
+    <opt:booleanOption opt:id="absolute_path" opt:name="Use absolute paths." opt:trueemission="-u"/>
+    <opt:booleanOption opt:id="macro_deref" opt:name="Use the source from where the macro was invoked for errors" opt:trueemission="-X"/>
+    <opt:enumOption opt:id="strict_level" opt:name="Strict level." opt:textdefault="0" opt:emissionprefix="-S" opt:emitswhendefault="false">
+        <opt:selection opt:text="0" opt:name="No strict messages."/>
+        <opt:selection opt:text="1" opt:name="Show warning messages if one of is missing."/>
+        <opt:selection opt:text="2" opt:name="Show error messages if one of is missing."/>
+    </opt:enumOption>
+    <opt:enumOption opt:id="warning_level" opt:name="Set the message level." opt:textdefault="0" opt:emissionprefix="-w" opt:emitswhendefault="false">
+        <opt:selection opt:text="0" opt:name="Allow all messages, warnings, and errors."/>
+        <opt:selection opt:text="1" opt:name="Will suppress the messages."/>
+        <opt:selection opt:text="2" opt:name="Will suppress the messages and warnings."/>
+    </opt:enumOption>
     <opt:stringListOption opt:id="user-defines" opt:name="Preprocessor macro definitions" opt:emissionprefix="-D" opt:emissionseparator=" -D" opt:expr="[A-Za-z_][A-Za-z_0-9]*(=.+)?"/>
     <opt:stringListOption opt:id="user-includes" opt:name="Include directories" opt:emissionprefix="-I" opt:emissionseparator=" -I" opt:slashnormalization="unix" opt:isdirectory="true" opt:isbrowsable="true"/>
   </opt:optionCategory>
 
-  <opt:disablePattern opt:idref="singlemode" opt:expr="-([cC])"/>
+  <opt:enablePattern opt:idref="output_debug" opt:expr="-d"/>
+  <opt:enablePattern opt:idref="full_address" opt:expr="-f"/>
+  <opt:enablePattern opt:idref="coff_debug" opt:expr="-g"/>
+  <opt:enablePattern opt:idref="ignore_case" opt:expr="-i"/>
+  <opt:enablePattern opt:idref="error_file" opt:expr="-k"/>
+  <opt:enablePattern opt:idref="extended" opt:expr="-y"/>
+  <opt:enablePattern opt:idref="ignore_nolist" opt:expr="-L"/>
+  <opt:enablePattern opt:idref="output_deps" opt:expr="-M"/>
+  <opt:enablePattern opt:idref="use_dos" opt:expr="-n"/>
+  <opt:enablePattern opt:idref="absolute_path" opt:expr="-u"/>
+  <opt:enablePattern opt:idref="macro_deref" opt:expr="-X"/>
+  <opt:submatchPattern opt:idref="strict_level" opt:expr="-S([012])"/>
+  <opt:submatchPattern opt:idref="warning_level" opt:expr="-w([012])"/>
   <opt:submatchPattern opt:idref="user-defines" opt:expr="-D(.+)"/>
   <opt:submatchPattern opt:idref="user-includes" opt:expr="-I=(.+)"/>
 </opt:optionLanguage>
