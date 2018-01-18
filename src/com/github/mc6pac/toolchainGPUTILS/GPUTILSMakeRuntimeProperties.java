@@ -18,12 +18,12 @@ public class GPUTILSMakeRuntimeProperties {
         if (!Utilities.isWindows())
             return res;
         // Check the option value
-        OptionConfiguration confObject = projectDescriptor.getSynthesizedOptionConfiguration(conf.getName(), "gputils-config", null);
+        OptionConfiguration confObject = projectDescriptor.getSynthesizedOptionConfiguration(conf.getName(), "gpasm-config", null);
         if (confObject != null) {
             List<Pair<String, String>> emissionPairs = confObject.getEmissionPairs(null, null);
             if (emissionPairs != null) {
                 for (Pair<String, String> p : emissionPairs) {
-                    if (p.first.equals("singlemode")) {
+                    if (p.first.equals("older_coff_format") || p.first.equals("old_coff_format")) {
                         res = p.second.equals("true");
                         break;
                     }

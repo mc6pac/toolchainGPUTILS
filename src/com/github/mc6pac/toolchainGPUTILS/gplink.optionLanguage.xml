@@ -6,12 +6,60 @@
                     opt:name="GPLINK">
 
   <opt:optionCategory opt:id="link_opt" opt:name="Linker Options">
-    <opt:booleanOption opt:id="" opt:name="." opt:trueemission="-"/>
-    <opt:booleanOption opt:id="" opt:name="." opt:trueemission="-"/>
-    <opt:booleanOption opt:id="" opt:name="." opt:trueemission="-"/>
-    <opt:booleanOption opt:id="" opt:name="." opt:trueemission="-"/>
-    <opt:booleanOption opt:id="" opt:name="." opt:trueemission="-"/>
-    <opt:booleanOption opt:id="" opt:name="." opt:trueemission="-"/>
+    <opt:enumOption opt:id="hex_file_format" opt:name="Hex file format." opt:textdefault="inhx32" opt:emissionprefix="-a" opt:emitswhendefault="false">
+        <opt:selection opt:text="inhx8s" opt:name="INHX8S"/>
+        <opt:selection opt:text="inhx8m" opt:name="INHX8M"/>
+        <opt:selection opt:text="inhx16" opt:name="INHX16"/>
+        <opt:selection opt:text="inhx32" opt:name="INHX32"/>            
+    </opt:enumOption>
+    <opt:enumOption opt:id="remove_banksel_level" opt:name="Remove unnecessary Banksel directives." opt:textdefault="0" opt:emissionprefix="-b" opt:emitswhendefault="false">
+        <opt:selection opt:text="0" opt:name="Level 0"/>
+        <opt:selection opt:text="1" opt:name="Level 1"/>
+        <opt:selection opt:text="2" opt:name="Level 2"/>
+    </opt:enumOption>
+    <opt:booleanOption opt:id="executable_object" opt:name="Output an executable object." opt:trueemission="-c"/>
+    <opt:booleanOption opt:id="warnings_cinit" opt:name="Disable this warnings of _cinit section with -O2 option: 'Relocation symbol _cinit has no section.'" opt:trueemission="-C"/>
+    <opt:booleanOption opt:id="fill_unused" opt:name="Fill unused unprotected program memory with [value]." opt:trueemission="-f"/>
+    <opt:stringListOption opt:id="linker_includes" opt:name="Include directories" opt:emissionprefix="-I" opt:emissionseparator=" -I" opt:slashnormalization="unix" opt:isdirectory="true" opt:isbrowsable="true"/>
+    <opt:booleanOption opt:id="disable_save_local_regs" opt:name="Disable the save of local registers to COD file." opt:trueemission="-j"/>
+    <opt:booleanOption opt:id="disable_list_file" opt:name="Disable the list file output." opt:trueemission="-l"/>
+    <opt:booleanOption opt:id="create_map_file" opt:name="Output a map file." opt:trueemission="-m"/>
+    <opt:enumOption opt:id="optim_level" opt:name="Optimization level." opt:textdefault="1" opt:emissionprefix="-O" opt:emitswhendefault="false">
+        <opt:selection opt:text="0" opt:name="Level 0"/>
+        <opt:selection opt:text="1" opt:name="Level 1"/>
+        <opt:selection opt:text="2" opt:name="Level 2"/>
+    </opt:enumOption>
+    <opt:enumOption opt:id="remove_pagesel_level" opt:name="Remove unnecessary Pagesel directives." opt:textdefault="0" opt:emissionprefix="-p" opt:emitswhendefault="false">
+        <opt:selection opt:text="0" opt:name="Level 0"/>
+        <opt:selection opt:text="1" opt:name="Level 1"/>
+        <opt:selection opt:text="2" opt:name="Level 2"/>
+    </opt:enumOption>
+    <opt:booleanOption opt:id="use_shared_mem" opt:name="Attempt to relocate unshared data sections to shared memory if relocation fails." opt:trueemission="-r"/>
+    <opt:stringOption opt:id="stack_size" opt:name="Create a stack section [size]." opt:emissionprefix="-t" opt:validatorclass="com.microchip.mplab.nbide.toolchainCommon.opt.validation.CSyntaxNumberValidator"/>
+    <opt:enumOption opt:id="strict_level" opt:name="Set the strict level of the missing symbol." opt:textdefault="0" opt:emissionprefix="-S" opt:emitswhendefault="false">
+        <opt:selection opt:text="0" opt:name="Level 0"/>
+        <opt:selection opt:text="1" opt:name="Level 1"/>
+        <opt:selection opt:text="2" opt:name="Level 2"/>
+    </opt:enumOption>
+
+    <opt:booleanOption opt:id="processor_mismatch" opt:name="Disable processor mismatch warning." opt:trueemission="-w"/>
+    <opt:stringListOption opt:id="user-macros" opt:name="Add macro value for script." opt:emissionprefix="-u" opt:emissionseparator=" -u" opt:expr="[A-Za-z_][A-Za-z_0-9]*(=.+)?"/>
   </opt:optionCategory>
 
+  <opt:submatchPattern opt:idref="hex_file_format" opt:expr="-a([012])"/>
+  <opt:submatchPattern opt:idref="remove_banksel_level" opt:expr="-b([012])"/>
+  <opt:enablePattern opt:idref="executable_object" opt:expr="-c"/>
+  <opt:enablePattern opt:idref="warnings_cinit" opt:expr="-C"/>
+  <opt:enablePattern opt:idref="fill_unused" opt:expr="-f"/>
+  <opt:submatchPattern opt:idref="linker_includes" opt:expr="-I=(.+)"/>
+  <opt:enablePattern opt:idref="disable_save_local_regs" opt:expr="-j"/>
+  <opt:enablePattern opt:idref="disable_list_file" opt:expr="-l"/>
+  <opt:enablePattern opt:idref="create_map_file" opt:expr="-m"/>
+  <opt:submatchPattern opt:idref="optim_level" opt:expr="-O([012])"/>
+  <opt:submatchPattern opt:idref="remove_pagesel_level" opt:expr="-p([012])"/>
+  <opt:enablePattern opt:idref="use_shared_mem" opt:expr="-r"/>
+  <opt:submatchPattern opt:idref="stack_size" opt:expr="-t(\d)"/>
+  <opt:submatchPattern opt:idref="strict_level" opt:expr="-S([012])"/>
+  <opt:enablePattern opt:idref="processor_mismatch" opt:expr="-w"/>
+  <opt:submatchPattern opt:idref="user-macros" opt:expr="-u(.+)"/>
 </opt:optionLanguage>

@@ -6,8 +6,8 @@
                     opt:name="GPASM">
   
   <opt:optionCategory opt:id="asm_opt" opt:name="Assembler Options">
-    <!--opt:booleanOption opt:id="older_coff_format" opt:name="Output a relocatable object in the older version of the Microchip COFF format." opt:trueemission="-c"/ -->
-    <!--opt:booleanOption opt:id="old_coff_format" opt:name="Output a relocatable object in the old Microchip COFF format." opt:trueemission="-C"/ -->
+    <opt:booleanOption opt:id="older_coff_format" opt:name="Output a relocatable object in the older version of the Microchip COFF format." opt:trueemission="-c"/>
+    <opt:booleanOption opt:id="old_coff_format" opt:name="Output a relocatable object in the old Microchip COFF format." opt:trueemission="-C"/>
     <opt:enumOption opt:id="hexfileformat" opt:name="Hex file format." opt:textdefault="inhx32" opt:emissionprefix="-a" opt:emitswhendefault="false">
         <opt:selection opt:text="inhx8s" opt:name="INHX8S"/>
         <opt:selection opt:text="inhx8m" opt:name="INHX8M"/>
@@ -39,6 +39,8 @@
     <opt:stringListOption opt:id="user-includes" opt:name="Include directories" opt:emissionprefix="-I" opt:emissionseparator=" -I" opt:slashnormalization="unix" opt:isdirectory="true" opt:isbrowsable="true"/>
   </opt:optionCategory>
 
+  <opt:enablePattern opt:idref="older_coff_format" opt:expr="-c"/>
+  <opt:enablePattern opt:idref="old_coff_format" opt:expr="-C"/>
   <opt:enablePattern opt:idref="output_debug" opt:expr="-d"/>
   <opt:enablePattern opt:idref="full_address" opt:expr="-f"/>
   <opt:enablePattern opt:idref="coff_debug" opt:expr="-g"/>

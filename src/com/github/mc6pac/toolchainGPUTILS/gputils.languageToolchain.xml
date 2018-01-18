@@ -10,7 +10,7 @@
 
   <mp:versionProvider mp:class="com.github.mc6pac.toolchainGPUTILS.GPUTILSVersionProvider"/>
   
-  <mp:configurationObject mp:id="gputils-config" mp:idref="GPUTILS" opt:src="gputils.optionLanguage.xml"/>
+  <!--mp:configurationObject mp:id="gputils-config" mp:idref="GPUTILS" opt:src="gputils.optionLanguage.xml"/-->
   <mp:configurationObject mp:id="gpasm-config" mp:idref="gpasm" opt:src="gpasm.optionLanguage.xml"/>
   <mp:configurationObject mp:id="gplink-config" mp:idref="gplink" opt:src="gplink.optionLanguage.xml"/>
   <mp:configurationObject mp:id="gplib-config" mp:idref="gplib" opt:src="gplib.optionLanguage.xml"/>
