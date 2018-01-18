@@ -24,7 +24,7 @@ public class GPUTILSMakeRuntimeProperties {
             if (emissionPairs != null) {
                 for (Pair<String, String> p : emissionPairs) {
                     if (p.first.equals("older_coff_format") || p.first.equals("old_coff_format")) {
-                        res = p.second.equals("true");
+                        res = false;
                         break;
                     }
                 }

@@ -40,12 +40,13 @@
       
       <mp:makeRule mp:id="assemble_direct" mp:prerequisites=".*(asm|ASM|Asm)$" mp:runtimepropertiesclass="com.github.mc6pac.toolchainGPUTILS.GPUTILSProperties">
             <mp:textEmitter mp:text="@${MKDIR} ${CURRENT_QUOTED_IF_SPACED_OBJECT_DIR_UNIX_SLASHES} ${NEWLINE}"/>
+            <mp:textEmitter mp:text="@${MKDIR} ${FINAL_TARGET_DIR} ${NEWLINE}"/>
             <mp:textEmitter mp:text="@${RM} ${CURRENT_QUOTED_IF_SPACED_OBJECT_FILE} ${NEWLINE}"/>
             <mp:textEmitter mp:text="${MP_AS} "/>
             <mp:textEmitter mp:text="-p${PROCESSOR_NAME} "/>
             <mp:optionEmitter mp:idref="gpasm-config" mp:separator=" "/>
             <mp:textEmitter mp:text=" ${CURRENT_QUOTED_IF_SPACED_SOURCE_FILE}"/>
-            <mp:textEmitter mp:text=" -o ${CURRENT_QUOTED_IF_SPACED_OBJECT_FILE}"/>
+            <mp:textEmitter mp:text=" -o ${FINAL_IMAGE_NAME_MINUS_EXTENSION}.hex"/>
             <mp:textEmitter mp:text="${NEWLINE}"/>
       </mp:makeRule>
 
